@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Teste", "Api.Teste\Api.Teste.csproj", "{8193A174-ABD3-47B1-B7D1-322C4C245698}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Ado.NetCore", "Api.Ado.NetCore\Api.Ado.NetCore.csproj", "{841AD24C-F227-4077-AE20-962022893ED8}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8193A174-ABD3-47B1-B7D1-322C4C245698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8193A174-ABD3-47B1-B7D1-322C4C245698}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8193A174-ABD3-47B1-B7D1-322C4C245698}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8193A174-ABD3-47B1-B7D1-322C4C245698}.Release|Any CPU.Build.0 = Release|Any CPU
 		{841AD24C-F227-4077-AE20-962022893ED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{841AD24C-F227-4077-AE20-962022893ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{841AD24C-F227-4077-AE20-962022893ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU

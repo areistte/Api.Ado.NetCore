@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Ado.NetCore.Models;
 using Api.Ado.NetCore.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,34 +14,19 @@ namespace Api.Ado.NetCore.Controllers
     [ApiController]
     public class AlunoController : ControllerBase
     {
-        private readonly IConfiguration _config;
+        private IAlunoRepository _repository;
 
-        public AlunoController(IConfiguration config)
+        public AlunoController(IAlunoRepository repository)
         {
-            _config = config;
+            _repository = repository;
         }
-
-
-
-        //private readonly AlunoRepository _alunoRepository;
-
-        //public AlunoController()
-        //{
-        //    _alunoRepository = new AlunoRepository();
-        //}
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<AlunoViewModel>>> GetAlunosAll()
         {
-
-            var _con = new SqlConnection(Configuration.GetConnectionString("cnnString"));
-
-            //var data = _alunoRepository.BuscaTodos();
-            //return Ok(data);
-            string cnnstr;
-            cnnstr = _config["cnnString"];
-            return Ok("cnnstr");
+            var query = new Aluno();
+            return Ok(await _repository.GetAlunos(query));
         }
 
 

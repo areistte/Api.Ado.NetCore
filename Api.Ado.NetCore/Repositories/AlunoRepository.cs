@@ -1,71 +1,39 @@
-﻿using Api.Ado.NetCore.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Protocols;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
+using Api.Ado.NetCore.Models;
+using Dapper;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace Api.Ado.NetCore.Repositories
 {
-    public class AlunoRepository
+    public class AlunoRepository : IAlunoRepository
     {
-        private readonly IConfiguration _config;
+        private string config;
+        private IHostingEnvironment _env;
 
-        public AlunoRepository(IConfiguration config)
+        public AlunoRepository(IConfiguration _config, IHostingEnvironment env)
         {
-            _config = config;
+            config = _config["ConnectionStrings"];
+            _env = env;
         }
 
-
-        //private SqlConnection _con;
-
-        //public void Connection()
-        //{
-        //    IConfiguration _config;
-        //    _con = new SqlConnection(_config.GetConnectionString("cnnString"));
-        //}
-
-        //public List<Aluno> BuscaTodos()
-        //{
-        //    var _con = new SqlConnection(Configuration.GetConnectionString("cnnString"));
-
-        //    List<Aluno> aluno_list = new List<Aluno>();
-
-        //    using (SqlCommand command = new SqlCommand("mhb_sp_listar_usuarios", _con))
-        //    {
-        //        command.CommandType = CommandType.StoredProcedure;
-
-        //        _con.Open();
-
-        //        SqlDataReader reader = command.ExecuteReader();
-
-        //        while (reader.Read())
-        //        {
-        //            Aluno aluno = new Aluno()
-        //            {
-        //                Id = Convert.ToInt32(reader["id_aluno"]),
-        //                Nome = Convert.ToString(reader["nome"]),
-        //                Idade = Convert.ToInt32(reader["idade"])
-        //            };
-
-        //            aluno_list.Add(aluno);
-        //        }
-
-        //        _con.Close();
-
-        //        return aluno_list;
-        //    }
-        //}
-
-
-
-        public void BuscaTodos()
+        public async Task<IEnumerable<AlunoViewModel>> GetAlunos(Aluno aluno)
         {
-            _config.GetConnectionString("cnnString");
+            var parameters = new
+            { };
 
-            int teste = 4;
+            using (var connection = new SqlConnection(config))
+            {
+                var result = await connection.QueryMultipleAsync(
+                    sql: "Dte_Spr_Sel_Marcas_Lista",
+                    param: parameters,
+                    commandType: CommandType.StoredProcedure);
+
+                return result.Read<AlunoViewModel>();
+            }
         }
-
     }
 }
