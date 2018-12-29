@@ -25,26 +25,25 @@ namespace Api.Ado.NetCore.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AlunoViewModel>>> GetAlunosAll()
         {
-            var query = new Aluno();
-            return Ok(await _repository.GetAlunos(query));
+            var aluno = new Aluno();
+            return Ok(await _repository.GetAlunos(aluno));
         }
 
+        // GET api/values/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<AlunoViewModel>>> GetAlunosAll(int id)
+        {
+            var aluno = new Aluno();
+            aluno.IdAluno = id;
 
+            return Ok(await _repository.GetAlunos(aluno));
+        }
 
-
-
-        //// GET api/values/5
-        //[HttpGet("{id}")]
-        //public ActionResult<string> Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST api/values
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        // POST api/values
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
 
         //// PUT api/values/5
         //[HttpPut("{id}")]

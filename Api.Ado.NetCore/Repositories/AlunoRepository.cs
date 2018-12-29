@@ -11,7 +11,7 @@ namespace Api.Ado.NetCore.Repositories
 {
     public class AlunoRepository : IAlunoRepository
     {
-        private string config;
+        private readonly string config;
         private IHostingEnvironment _env;
 
         public AlunoRepository(IConfiguration _config, IHostingEnvironment env)
@@ -23,12 +23,14 @@ namespace Api.Ado.NetCore.Repositories
         public async Task<IEnumerable<AlunoViewModel>> GetAlunos(Aluno aluno)
         {
             var parameters = new
-            { };
+            {
+                Id = aluno.IdAluno
+            };
 
             using (var connection = new SqlConnection(config))
             {
                 var result = await connection.QueryMultipleAsync(
-                    sql: "Dte_Spr_Sel_Marcas_Lista",
+                    sql: "sp_aluno",
                     param: parameters,
                     commandType: CommandType.StoredProcedure);
 
